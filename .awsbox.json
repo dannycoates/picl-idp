@@ -1,6 +1,6 @@
 {
   "processes": [
-    "bin/key_server.js"
+    "bin/server.js"
   ],
   "env": {
     "CONFIG_FILES": "$HOME/code/config/awsbox.json,$HOME/config.json",

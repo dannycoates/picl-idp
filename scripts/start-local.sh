@@ -4,7 +4,7 @@ node ./node_modules/fxa-customs-server/bin/customs_server.js &
 CS=$!
 node ./test/mail_helper.js &
 MH=$!
-node ./bin/key_server.js | node ./bin/notifier.js >/dev/null
+node ./bin/server.js | node ./bin/notifier.js >/dev/null
 
 kill $CS
 kill $MH

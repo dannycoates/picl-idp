@@ -16,7 +16,7 @@ var start = null
 
 var server = cp.spawn(
   'node',
-  ['../../bin/key_server.js'],
+  ['../../bin/server.js'],
   {
     cwd: __dirname
   }

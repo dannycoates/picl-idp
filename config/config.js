@@ -146,7 +146,7 @@ module.exports = function (fs, path, url, convict) {
     listen: {
       host: {
         doc: "The ip address the server should bind",
-        default: '127.0.0.1',
+        default: '0.0.0.0',
         format: 'ipaddress',
         env: 'IP_ADDRESS'
       },
