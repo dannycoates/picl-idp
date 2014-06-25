@@ -1,0 +1,24 @@
+{
+    "publicUrl": "{{ .auth_public_url }}",
+    "domain": "{{ .domain_name }}",
+    "db": {
+        "backend": "httpdb"
+    },
+    "httpdb": {
+        "url": "{{ .authdb_private_url }}"
+    },
+    "customsUrl": "{{ .customs_private_url }}",
+    "contentServer": {
+        "url": "{{ .content_public_url }}"
+    },
+    "smtp": {
+        "host": "{{ .auth_mail_host }}",
+        "port": {{ .auth_mail_port }},
+        "secure": false,
+        "sender":"{{ .auth_mail_sender }}",
+        "redirectDomain": "firefox.com"
+    },
+    "listen": {
+        "port": 9000
+    }
+}

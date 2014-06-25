@@ -1,0 +1,13 @@
+[template]
+keys = [
+  "auth/mail/host",
+  "auth/mail/port",
+  "auth/mail/sender",
+  "auth/public_url",
+  "authdb/private_url",
+  "content/public_url",
+  "customs/private_url",
+  "domain_name"
+]
+src = "config.json.tmpl"
+dest = "/app/config/prod.json"

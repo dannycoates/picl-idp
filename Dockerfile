@@ -1,7 +1,12 @@
 # DOCKER-VERSION 0.9
-FROM dannycoates/node:0.10.29
+FROM dannycoates/base
 
+RUN apt-get update -y
 RUN apt-get -y install libgmp3-dev
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ADD docker/confd /etc/confd
+ADD docker/run.sh /etc/service/fxa_auth_server/run
 
 ADD . /app
 WORKDIR /app
@@ -9,9 +14,4 @@ WORKDIR /app
 RUN npm install
 RUN node scripts/gen_keys.js
 
-VOLUME /config
-
-ENV CONFIG_FILES /config/fxa_auth_server.json
-
 EXPOSE 9000
-CMD ["node", "bin/server.js"]
