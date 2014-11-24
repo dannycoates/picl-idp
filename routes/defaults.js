@@ -76,6 +76,13 @@ module.exports = function (log, P, db, error) {
       }
     },
     {
+      method: 'GET',
+      path: '/ab.js',
+      handler: {
+        file: './routes/static/ab.js'
+      }
+    },
+    {
       method: '*',
       path: '/v0/{p*}',
       handler: function v0(request, reply) {
