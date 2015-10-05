@@ -206,6 +206,57 @@ test(
 )
 
 test(
+  'basic device ops',
+  function (t) {
+    var device = {
+      uid: ACCOUNT.uid,
+      name: 'test device'
+    }
+    return dbConn.then(
+      function (db) {
+        return db.upsertDevice(device)
+        .then(
+          function (d) {
+            t.equal(d.name, device.name)
+            t.deepEqual(d.uid, device.uid)
+            t.ok(d.id, 'assigned a device id')
+          }
+        )
+        .then(
+          function () {
+            return db.devices(ACCOUNT.uid)
+          }
+        )
+        .then(
+          function (devices) {
+            var d = devices[0]
+            t.equal(devices.length, 1, 'account has 1 device')
+            t.equal(d.name, device.name)
+            t.deepEqual(d.uid, device.uid)
+            return d
+          }
+        )
+        .then(
+          function (d) {
+            return db.deleteDevice(ACCOUNT.uid, d.id)
+          }
+        )
+        .then(
+          function () {
+            return db.devices(ACCOUNT.uid)
+          }
+        )
+        .then(
+          function (devices) {
+            t.equal(devices.length, 0, 'account has no devices')
+          }
+        )
+      }
+    )
+  }
+)
+
+test(
   'keyfetch token handling',
   function (t) {
     return dbConn.then(function(db) {

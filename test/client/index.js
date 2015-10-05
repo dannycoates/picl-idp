@@ -125,6 +125,7 @@ Client.prototype.create = function () {
       this.authAt = a.authAt
       this.sessionToken = a.sessionToken
       this.keyFetchToken = a.keyFetchToken
+      this.device = a.device
       return this
     }.bind(this)
   )
@@ -270,6 +271,46 @@ Client.prototype.keys = function () {
         throw err
       }.bind(this)
     )
+}
+
+Client.prototype.devices = function () {
+  var o = this.sessionToken ? P.resolve(null) : this.login()
+  return o.then(
+    function () {
+      return this.api.accountDevices(this.sessionToken)
+    }.bind(this)
+  )
+}
+
+Client.prototype.updateDevice = function (info) {
+  var o = this.sessionToken ? P.resolve(null) : this.login()
+  return o.then(
+    function () {
+      return this.api.updateDevice(this.sessionToken, info)
+    }.bind(this)
+  )
+  .then(
+    function (device) {
+      if (this.device.id === device.id) {
+        this.device = device
+      }
+      return device
+    }.bind(this)
+  )
+}
+
+Client.prototype.deleteDevice = function (id) {
+  var o = this.sessionToken ? P.resolve(null) : this.login()
+  return o.then(
+    function () {
+      return this.api.deleteDevice(this.sessionToken, id)
+    }.bind(this)
+  )
+  .then(
+    function () {
+      delete this.sessionToken
+    }.bind(this)
+  )
 }
 
 Client.prototype.sessionStatus = function () {
