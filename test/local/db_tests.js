@@ -210,6 +210,7 @@ test(
   function (t) {
     var device = {
       uid: ACCOUNT.uid,
+      id: uuid.v4('binary'),
       name: 'test device'
     }
     return dbConn.then(
@@ -219,7 +220,7 @@ test(
           function (d) {
             t.equal(d.name, device.name)
             t.deepEqual(d.uid, device.uid)
-            t.ok(d.id, 'assigned a device id')
+            t.deepEqual(d.id, device.id)
           }
         )
         .then(
